@@ -1,0 +1,5 @@
+/home/chunyu123/github/KuiperInfer/demos/build/CMakeFiles/edit_cache.dir
+/home/chunyu123/github/KuiperInfer/demos/build/CMakeFiles/rebuild_cache.dir
+/home/chunyu123/github/KuiperInfer/demos/build/yolo/CMakeFiles/yolo_test.dir
+/home/chunyu123/github/KuiperInfer/demos/build/yolo/CMakeFiles/edit_cache.dir
+/home/chunyu123/github/KuiperInfer/demos/build/yolo/CMakeFiles/rebuild_cache.dir
