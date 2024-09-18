@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_STANDARD 17)
 
-# 查找 OpenCV 库
 find_package(OpenCV REQUIRED)
 if (OpenCV_FOUND)
     message(STATUS "Found OpenCV: ${OpenCV_VERSION}")
@@ -9,7 +8,6 @@ else()
     message(FATAL_ERROR "OpenCV not found!")
 endif()
 
-# 查找 glog 库
 find_package(glog REQUIRED)
 if (glog_FOUND)
     message(STATUS "Found glog: ${glog_VERSION}")
@@ -18,7 +16,9 @@ else()
 endif()
 
 set(WebService_INCLUDE_DIR "/home/chunyu123/github/KuiperInfer/service/TinyWebServer")
-set(KuiperInfer_INCLUDE_DIR "/home/chunyu123/github/KuiperInfer/include")
+set(KuiperInfer_INCLUDE_DIR "/home/chunyu123/github/kuiperinfer-with-service/include")
+set(JSON11_INCLUDE_DIRS "/usr/include/x86_64-linux-gnu")
+set(JSON11_LIBRARIES "/usr/lib/x86_64-linux-gnu/libjson11.a")
 
 
 # 添加包含目录
@@ -26,17 +26,13 @@ include_directories(
     ${OpenCV_INCLUDE_DIRS}
     ${glog_INCLUDE_DIR}
     ${KuiperInfer_INCLUDE_DIR}
-    ${KuiperInfer_INCLUDE_DIR}../demos
-    ${WebService_INCLUDE_DIR}/CGImysql
-    ${WebService_INCLUDE_DIR}/http
-    ${WebService_INCLUDE_DIR}/log
-    ${WebService_INCLUDE_DIR}/threadpool
-    ${WebService_INCLUDE_DIR}/timer
-    ${WebService_INCLUDE_DIR}
+    ${JSON11_INCLUDE_DIRS}
+    "/home/chunyu123/github/KuiperInfer/service"
+
 )
 
 # 添加链接目录
-link_directories(${OpenCV_LIBRARY_DIRS} ${PROJECT_SOURCE_DIR}/lib)
+link_directories(${OpenCV_LIBRARY_DIRS} ${PROJECT_SOURCE_DIR}/lib "/usr/lib/x86_64-linux-gnu")
 
 # 设置编译器优化标志
 if (MSVC)
@@ -52,14 +48,15 @@ if (NOT KUIPER_LIB)
 endif()
 
 # 添加可执行文件
-add_executable(yolo_test yolo_test.cpp ../image_util.hpp ../image_util.cpp)
+add_executable(main main.cpp handle.cpp image_util.hpp image_util.cpp)
 
 # 链接库文件
-target_link_libraries(yolo_test 
+target_link_libraries(main 
     ${OpenCV_LIBS} 
     glog::glog 
     ${KUIPER_LIB} # 使用找到的 kuiper 库
+    ${JSON11_LIBRARIES}
 )
 
 # 如果需要，可以设置目标的链接目录
-target_link_directories(yolo_test PUBLIC ${PROJECT_SOURCE_DIR}/lib)
+target_link_directories(main PUBLIC ${PROJECT_SOURCE_DIR}/lib)

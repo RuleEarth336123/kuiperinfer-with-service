@@ -1,0 +1,10 @@
+[
+    // request
+    {
+        "images" : ["./imgs/bus.jpg",
+                    "./imgs/bus.jpg"],
+        "batch_size" : "8",
+        "param_path" : "tmp/yolo/demo/yolov5s_batch8.pnnx.param",
+        "bin_path" : "tmp/yolo/demo/yolov5s_batch8.pnnx.bin"
+    }
+]
